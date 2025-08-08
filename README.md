@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+# Flask Backend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📌 Overview
+This is a **Flask backend API** for managing tasks and their comments.  
+It uses **SQLite** as the database and supports **CRUD** operations for comments linked to specific tasks.
 
-## Available Scripts
+The backend is designed to work with a frontend (e.g., React) that consumes its REST API.
 
-In the project directory, you can run:
+## 🚀 Features
+- **SQLite database** with SQLAlchemy ORM
+- **Task model** (stores task titles)
+- **Comment model** (stores comments linked to tasks)
+- **CRUD APIs** for comments:
+  - Create a comment for a task
+  - Edit an existing comment
+  - Delete a comment
+  - Fetch all comments for a task
+- **CORS enabled** for frontend-backend communication
 
-### `npm start`
+## 📂 Project Structure
+```
+backend/
+│── app.py               # Main Flask application
+│── database.db          # SQLite database file (auto-created)
+│── requirements.txt     # Python dependencies
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ⚙️ Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1️⃣ Clone or download the repository
+```bash
+git clone https://github.com/your-username/flask-react-template.git
+cd flask-react-template/backend
+```
 
-### `npm test`
+### 2️⃣ Create a virtual environment
+```bash
+python -m venv venv
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Activate the virtual environment:
 
-### `npm run build`
+- **Windows (CMD)**:
+  ```bash
+  venv\Scripts\activate
+  ```
+- **Mac/Linux**:
+  ```bash
+  source venv/bin/activate
+  ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3️⃣ Install dependencies
+```bash
+pip install -r requirements.txt
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ▶️ Running the Backend
+```bash
+python app.py
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Backend will run at:
+```
+http://127.0.0.1:5000
+```
 
-### `npm run eject`
+## 📡 API Endpoints
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 1. Create a Comment
+**POST** `/tasks/<task_id>/comments`  
+**Body (JSON)**:
+```json
+{
+  "content": "This is a new comment"
+}
+```
+**Response**:
+```json
+{
+  "id": 1,
+  "content": "This is a new comment"
+}
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Edit a Comment
+**PUT** `/comments/<comment_id>`  
+**Body (JSON)**:
+```json
+{
+  "content": "Updated comment"
+}
+```
+**Response**:
+```json
+{
+  "id": 1,
+  "content": "Updated comment"
+}
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3. Delete a Comment
+**DELETE** `/comments/<comment_id>`  
+**Response**:
+```
+204 No Content
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 4. Get All Comments for a Task
+**GET** `/tasks/<task_id>/comments`  
+**Response**:
+```json
+[
+  { "id": 1, "content": "First comment" },
+  { "id": 2, "content": "Second comment" }
+]
+```
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🛠 Notes
+- The database is created automatically on first run.
+- A default task (`First Task`) is inserted if it doesn’t exist.
+- Make sure backend port (`5000`) matches the frontend API calls.
