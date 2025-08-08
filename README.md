@@ -1,4 +1,4 @@
-# React Frontend (`my-app`)
+# React Frontend (`Task 2`)
 
 ## Overview
 This is the React frontend for the Flask + SQLite Comments App.  
